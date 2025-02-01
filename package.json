@@ -12,7 +12,7 @@
     "url": "git+https://github.com/Kanester/musicPlayer.git"
   },
   "author": "KanesterP",
-  "license": "CC0-1.0",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Kanester/musicPlayer/issues"
   },
