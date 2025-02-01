@@ -1,0 +1,28 @@
+{
+  "name": "musicplayer",
+  "version": "1.0.0",
+  "description": "a music player",
+  "main": "src/main.js",
+  "scripts": {
+    "build": "node esbuild.config.mjs",
+    "serve": "node esbuild.config.mjs --serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kanester/musicPlayer.git"
+  },
+  "author": "KanesterP",
+  "license": "CC0-1.0",
+  "bugs": {
+    "url": "https://github.com/Kanester/musicPlayer/issues"
+  },
+  "homepage": "https://github.com/Kanester/musicPlayer#readme",
+  "devDependencies": {
+    "esbuild": "0.24.2"
+  },
+  "dependencies": {
+    "@capacitor/android": "^7.0.1",
+    "@capacitor/cli": "^7.0.1",
+    "@capacitor/core": "^7.0.1"
+  }
+}
