@@ -27,8 +27,8 @@ jobs:
       - name: Build Web Assets
         run: npm run build
 
-      - name: Install OpenJDK 21
-        run: sudo apt-get install -y openjdk-21-jdk
+      - name: Install OpenJDK 17
+        run: sudo apt-get install -y openjdk-17-jdk
 
       - name: Install Android Command Line Tools
         run: |
