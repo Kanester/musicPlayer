@@ -35,6 +35,9 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y android-sdk
           mkdir -p $HOME/Android/Sdk
+          export ANDROID_SDK_ROOT=$HOME/Android/Sdk
+          yes | sdkmanager --licenses
+          sdkmanager "platform-tools" "platforms;android-35" "build-tools;34.0.0"
 
       - name: Configure Android SDK
         run: echo "sdk.dir=$HOME/Android/Sdk" > android/local.properties
