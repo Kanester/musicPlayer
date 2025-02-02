@@ -12,7 +12,9 @@ const ctx = await esbuild.context({
 
 if (process.argv.includes("--serve")) {
     try {
-        const { host, port } = await ctx.serve();
+        const { host, port } = await ctx.serve({
+            servedir: "dist"
+        });
         console.log(`serving on... http://${host || "localhost"}:${port}`);
     } catch (err) {
         console.log("Error at starting Server!", err);

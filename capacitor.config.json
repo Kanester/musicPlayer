@@ -1,5 +1,5 @@
 {
   "appId": "com.mu.player",
   "appName": "musicplayer",
-  "webDir": "src"
+  "webDir": "dist"
 }
