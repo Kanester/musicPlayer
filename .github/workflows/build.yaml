@@ -34,15 +34,21 @@ jobs:
             - name: Sync android
               run: npx cap sync android
 
-            - name: Download Java JDK
+            - name: Install Java & Android SDK
               run: |
-                sudo apt-get update
-                sudo apt-get install -y openjdk-21-jdk
+                  sudo apt-get update
+                  sudo apt-get install -y openjdk-21-jdk unzip
 
-            - name: Download Android SDK
-              run: |
-                sudo apt-get install -y android-sdk
-                yes | sdkmanager --license
-                sdkmanager "plaform-tools" "platform;android-35" "build-tools;34.0.0"
+                  export ANDROID_SDK_ROOT=$HOME/android-sdk
+                  export PATH=$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$ANDROID_SDK_ROOT/platform-tools:$PATH
 
-            
+                  mkdir -p "$ANDROID_SDK_ROOT/cmdline-tools"
+                  cd "$ANDROID_SDK_ROOT/cmdline-tools"
+                  curl -o sdk-tools.zip https://dl.google.com/android/repository/commandlinetools-linux-10406996_latest.zip
+                  unzip sdk-tools.zip -d latest
+                  rm sdk-tools.zip
+
+                  yes | sdkmanager --sdk_root=$ANDROID_SDK_ROOT --licenses
+                  sdkmanager --sdk_root=$ANDROID_SDK_ROOT "platform-tools" "platforms;android-35" "build-tools;34.0.0"
+
+                  
