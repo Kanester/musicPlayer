@@ -5,7 +5,6 @@ const ctx = await esbuild.context({
     bundle: true,
     outdir: "dist",
     minify: true,
-    sourcemap: true,
     platform: "node",
     target: ["node23.13"],
     tsconfig: "tsconfig.json"
@@ -16,8 +15,8 @@ if (process.argv.includes("--serve")) {
         const { host, port } = await ctx.serve();
         console.log(`serving on... http://${host || "localhost"}:${port}`);
     } catch (err) {
-      console.log("Error at starting Server!", err);
-      process.exit(1);
+        console.log("Error at starting Server!", err);
+        process.exit(1);
     }
 } else {
     await ctx.rebuild();
@@ -26,7 +25,7 @@ if (process.argv.includes("--serve")) {
 }
 
 const cleanup = async () => {
-    console.log("cleaning up!");
+    console.log("\ncleaning up!");
     await ctx.dispose();
     process.exit(0);
 };

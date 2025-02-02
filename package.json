@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/Kanester/musicPlayer#readme",
   "devDependencies": {
-    "esbuild": "0.24.2"
+    "esbuild": "^0.24.2",
+    "typescript": "^5.7.3"
   },
   "dependencies": {
     "@capacitor/android": "^7.0.1",
