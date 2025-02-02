@@ -5,7 +5,8 @@
   "main": "src/main.js",
   "scripts": {
     "build": "node esbuild.config.mjs",
-    "serve": "node esbuild.config.mjs --serve"
+    "serve": "node esbuild.config.mjs --serve",
+    "android": "npx cap sync android"
   },
   "repository": {
     "type": "git",
