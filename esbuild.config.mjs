@@ -1,36 +1,57 @@
 import * as esbuild from "esbuild";
+import { copy } from "esbuild-plugin-copy";
+import * as minifier from "html-minifier-terser";
+import fs from "fs/promises";
+import fg from "fast-glob";
+import path from "path";
+
+const outputDir = "./dist";
+
+await Promise.all(
+    (await fg("src/**/*.html")).map(async file => {
+        const outFile = path.join(outputDir, path.relative("src", file));
+        await fs.mkdir(path.dirname(outFile), { recursive: true });
+        await fs.writeFile(
+            outFile,
+            await minifier.minify(await fs.readFile(file, "utf8"), {
+                collapseWhitespace: true,
+                removeComments: true,
+                minifyCSS: true,
+                minifyJS: true
+            })
+        );
+    })
+);
 
 const ctx = await esbuild.context({
-    entryPoints: ["./src/main.js"],
+    entryPoints: ["src/main.js"],
     bundle: true,
-    outdir: "dist",
+    outdir: outputDir,
     minify: true,
-    platform: "node",
-    target: ["node23.13"],
-    tsconfig: "tsconfig.json"
+    plugins: [
+        copy({
+            assets: {
+                from: (await fg("src/**/*")).filter(f => !f.endsWith(".html")),
+                to: ["./"]
+            },
+            watch: true
+        })
+    ]
 });
 
-if (process.argv.includes("--serve")) {
-    try {
-        const { host, port } = await ctx.serve({
-            servedir: "dist"
-        });
-        console.log(`serving on... http://${host || "localhost"}:${port}`);
-    } catch (err) {
-        console.log("Error at starting Server!", err);
-        process.exit(1);
-    }
-} else {
-    await ctx.rebuild();
-    console.log("compiling completed!");
-    await ctx.dispose();
-}
+process.argv.includes("--serve")
+    ? ctx
+          .serve({ servedir: outputDir })
+          .then(({ host, port }) =>
+              console.log(`🚀 Serving at http://${host || "localhost"}:${port}`)
+          )
+    : (await ctx.rebuild(),
+      console.log("✅ Build complete!"),
+      await ctx.dispose());
 
-const cleanup = async () => {
-    console.log("\ncleaning up!");
-    await ctx.dispose();
-    process.exit(0);
-};
-
-process.on("SIGINT", cleanup);
-process.on("SIGTERM", cleanup);
+process.on(
+    "SIGINT",
+    async () => (
+        await ctx.dispose(), console.log("\n🧹 Cleanup done!"), process.exit(0)
+    )
+);
