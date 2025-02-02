@@ -3,7 +3,7 @@ name: Build Capacitor APK
 on:
   push:
     branches:
-      - main  # Runs on push to main branch (change if needed)
+      - main
   pull_request:
   workflow_dispatch:
 
@@ -19,7 +19,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 'node'
-          cache: "npm"
+          cache: 'npm'
 
       - name: Install Dependencies
         run: npm ci
@@ -27,10 +27,20 @@ jobs:
       - name: Build Web Assets
         run: npm run build
 
-      - name: Install Android SDK & Dependencies
+      - name: Install OpenJDK 21
+        run: sudo apt-get install -y openjdk-21-jdk
+
+      - name: Install Android SDK
         run: |
           sudo apt-get update
-          sudo apt-get install -y openjdk-21-jdk android-sdk
+          sudo apt-get install -y android-sdk
+          mkdir -p $HOME/Android/Sdk
+
+      - name: Configure Android SDK
+        run: echo "sdk.dir=$HOME/Android/Sdk" > android/local.properties
+
+      - name: Make Gradle Executable
+        run: chmod +x android/gradlew
 
       - name: Setup Java & Gradle
         uses: gradle/actions/setup-gradle@v3
