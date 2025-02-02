@@ -14,7 +14,12 @@ jobs:
               uses: actions/checkout@v4
           
             - name: Setup NodeJS
-              uses: actione/setup-node@v4
+              uses: actions/setup-node@v4
               with:
                   node_version: "node"
                   cache: "npm"
+            - name: Download Dependencies
+              run: npm ci
+            - name: Build Project
+              run: npm run build
+              
