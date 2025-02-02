@@ -16,10 +16,20 @@ jobs:
             - name: Setup NodeJS
               uses: actions/setup-node@v4
               with:
-                  node_version: "node"
+                  node-version: "node"
                   cache: "npm"
             - name: Download Dependencies
               run: npm ci
             - name: Build Project
               run: npm run build
               
+            - name: Check android
+              id: check_android
+              run: echo "exists=$(if [ -d android ]; then echo true; else echo false; fi)" >> "$GITHUB_ENV"
+              
+            - name: Add android if android not exist
+              if: env.exists == 'false'
+              run: npx cap add android
+
+            - name: Sync android
+              run: npx cap sync android
