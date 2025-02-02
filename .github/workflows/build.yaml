@@ -37,7 +37,7 @@ jobs:
             - name: Download Java JDK
               run: |
                 sudo apt-get update
-                sude apt-get install -y openjdk-21-jdk
+                sudo apt-get install -y openjdk-21-jdk
 
             - name: Download Android SDK
               run: |
