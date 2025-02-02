@@ -65,11 +65,12 @@ jobs:
 
             - name: Ensure Java 21 is Used
               run: |
-                  echo "JAVA_HOME=$(dirname $(dirname $(readlink -f $(which javac))))" >> $GITHUB_ENV
-                  echo "PATH=$JAVA_HOME/bin:$PATH" >> $GITHUB_ENV
-
+               echo "JAVA_HOME=/usr/lib/jvm/temurin-21-jdk-amd64" >> $GITHUB_ENV
+               echo "PATH=$JAVA_HOME/bin:$PATH" >> $GITHUB_ENV
+               
             - name: Check Java Version
               run: java -version
+              
             - name: Setup Gradle
               uses: gradle/actions/setup-gradle@v3
 
