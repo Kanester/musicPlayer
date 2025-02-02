@@ -39,6 +39,9 @@ jobs:
                   sudo apt-get update
                   sudo apt-get install -y openjdk-21-jdk unzip
 
+                  echo "JAVA_HOME=$(dirname $(dirname $(readLink -f (which javac))))" >> $GITHUB_ENV
+                  echo "PATH=$JAVA_HOME/bin:$PATH" >> $GITHUB_ENV
+                  
                   export ANDROID_SDK_ROOT=$HOME/android-sdk
                   export ANDROID_HOME=$ANDROID_SDK_ROOT
                   export PATH=$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$ANDROID_SDK_ROOT/platform-tools:$PATH
