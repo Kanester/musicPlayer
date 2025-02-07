@@ -1,0 +1,1 @@
+*{margin:0;padding:0;box-sizing:border-box}ul{background:#0f0;display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;grid-template-rows:.2vw calc(1vh/15%);grid-gap:10px}li{list-style:none}
