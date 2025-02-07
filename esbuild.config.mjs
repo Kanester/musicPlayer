@@ -31,7 +31,9 @@ const ctx = await esbuild.context({
     plugins: [
         copy({
             assets: {
-                from: (await fg("src/**/*")).filter(f => !f.endsWith(".html")),
+                from: (await fg("src/**/*")).filter(
+                    f => !f.endsWith(".html")
+                ).filter(f => !f.endsWith(".js")),
                 to: ["./"]
             },
             watch: true

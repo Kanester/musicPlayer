@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">musicplayer</string>
-    <string name="title_activity_main">musicplayer</string>
+    <string name="app_name">PlayIt</string>
+    <string name="title_activity_main">PlayIt</string>
     <string name="package_name">com.mu.player</string>
     <string name="custom_url_scheme">com.mu.player</string>
 </resources>
